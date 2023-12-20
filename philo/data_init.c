@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:25:46 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/13 18:30:28 by ysanchez         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:26:33 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	init_forks(t_philo *philo, int pos, t_fork *forks)
 	philo_num = philo->args->philo_num;
 	if (philo->id % 2 == 0)
 	{
-		philo->secondfork = &forks[pos];
 		philo->firstfork = &forks[(pos + 1) % philo_num];
+		philo->secondfork = &forks[pos];
 	}
 	else
 	{
@@ -56,6 +56,7 @@ int	init_data(t_args *args)
 	args->finish = -1;
 	args->ready = -1;
 	args->running = 0;
+	//falta args->start
 	args->philoarr = malloc(sizeof(t_philo) * args->philo_num);
 	if (!args->philoarr)
 		return (ft_error(3));

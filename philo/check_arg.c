@@ -6,11 +6,19 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:52:29 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/20 14:49:07 by ysanchez         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:47:33 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	is_space(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (0);
+	else
+		return (1);
+}
 
 static int	check_valid_arg(char **argv)
 {
@@ -21,7 +29,7 @@ static int	check_valid_arg(char **argv)
 	j = 0;
 	while (argv[i])
 	{
-		while ((argv[i][j] >= 9 && argv[i][j] <= 13) || argv[i][j] == 32)
+		while (is_space(argv[i][j]) == 0)
 			j++;
 		if (argv[i][j] == '\0')
 			return (1);
@@ -39,7 +47,7 @@ static int	check_valid_arg(char **argv)
 	}
 	return (0);
 }
-
+// DUDA SI GUARDAR EL TIMETOX EN MILI O MICRO
 static void	save_info(int i, long result, t_args *args)
 {
 	if (i == 1)
@@ -61,19 +69,17 @@ static long	arg_to_long(int argnum, char *str, t_args *args)
 
 	i = 0;
 	result = 0;
-	while (((str[i] >= 9 && str[i] <= 13) || str[i] == 32) && str[i] != '\0')
+	while (is_space(str[i]) == 0 && str[i] != '\0')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = (result * 10) + (str[i] - 48);
 		i++;
 	}
-	if (result > INT_MAX)
+	if (result > LONG_MAX)
 		return (-1);
 	else
-	{
 		save_info(argnum, result, args);
-	}
 	return (0);
 }
 

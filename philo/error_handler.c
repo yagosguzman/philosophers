@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:26:26 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/20 14:51:32 by ysanchez         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:43:00 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_error(int errnum)
 	if (errnum == 1)
 		printf("Error\nFound unexpected characters in the arguments.\n");
 	if (errnum == 2)
-		printf("Error\nYou can only use unsigned integers as arguments.\n");
+		printf("Error\nYou can only use unsigned long as arguments.\n");
 	if (errnum == 3)
 		printf("Error\nProblem creating malloc.\n");
 	if (errnum == 4)

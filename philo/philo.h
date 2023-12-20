@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:29:49 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/20 14:54:02 by ysanchez         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:12:39 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ struct s_args
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			max_eat;
-	long			start;
+	long			finish;
 	long			ready;
 	long			running;
-	long			finish;
-	pthread_t		checker;
+	long			start;
 	pthread_mutex_t	args_mutex;
 	pthread_mutex_t	write_mutex;
 	t_fork			*forks;
 	t_philo			*philoarr;
+	pthread_t		checker;
 } ;
 
 /*CHECKER + DATA INIT*/

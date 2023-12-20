@@ -6,14 +6,14 @@
 #    By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/12 19:05:57 by ysanchez          #+#    #+#              #
-#    Updated: 2023/12/13 19:27:37 by ysanchez         ###   ########.fr        #
+#    Updated: 2023/12/20 18:23:32 by ysanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 NAME_BONUS = philo_bonus
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS = -Wall -Werror -Wextra
 RM = rm -f
 HEADER = philo.h
 HEADER_BONUS = philo_bonus.h
