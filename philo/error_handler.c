@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:26:26 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/20 17:43:00 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:13:53 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,16 @@ int	ft_error(int errnum)
 			"[1][2][3][4][*5]\n1.number_of_philosophers\n2.time_to_die(in ms)\n"
 			"3.time_to_eat(in ms)\n4.time_to_sleep (in ms)\n(*Optional)\n5."
 			"number_of_times_each_philosopher_must_eat\n");
-	if (errnum == 1)
+	else if (errnum == 1)
 		printf("Error\nFound unexpected characters in the arguments.\n");
-	if (errnum == 2)
-		printf("Error\nYou can only use unsigned long as arguments.\n");
-	if (errnum == 3)
+	else if (errnum == 2)
+		printf("Error\nYou can only use unsigned long numbers bigger than zero "
+			"as arguments.\n");
+	else if (errnum == 3)
 		printf("Error\nProblem creating malloc.\n");
-	if (errnum == 4)
-		printf("Error\nThe number of times each philosopher must eat can't be 0"
-			". If you don't want any, just don't type the fifth argument.\n");
-	if (errnum == 5)
+	else if (errnum == 4)
 		printf("Error\nProblem using the function gettimeofday.\n");
-	if (errnum == 6)
+	else if (errnum == 5)
 		printf("Error\nProblem using the function gettime.\nRemember to just "
 			"use SECONDS, MILLISECONDS OR MICROSECONDS\n");
 	return (1);

@@ -6,20 +6,20 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:32:20 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/20 14:52:55 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:35:58 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_long(pthread_mutex_t *mutex, long *dst, long value)
+void	set_value(pthread_mutex_t *mutex, long *dst, long value)
 {
 	mutex_handler(mutex, LOCK);
 	*dst = value;
 	mutex_handler(mutex, UNLOCK);
 }
 
-long	get_long(pthread_mutex_t *mutex, long *src)
+long	get_value(pthread_mutex_t *mutex, long *src)
 {
 	long	result;
 
@@ -29,7 +29,10 @@ long	get_long(pthread_mutex_t *mutex, long *src)
 	return (result);
 }
 
-int	simulation_finished(t_args *args)
+int	simulation_finished(t_data *data)
 {
-	return (get_long(&args->args_mutex, &args->finish));
+	if (get_value(&data->data_mtx, &data->finish) == 1
+		|| get_value(&data->data_mtx, &data->full) == data->philo_num)
+		return (1);
+	return (0);
 }

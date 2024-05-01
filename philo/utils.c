@@ -6,11 +6,27 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:16:16 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/13 18:27:39 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/04/30 21:36:13 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+long	ft_gettime(long t_start)
+{
+	struct timeval	time_val;
+
+	if (gettimeofday(&time_val, NULL) != 0)
+		return (ft_error(4));
+	return ((time_val.tv_sec * 1000) + (time_val.tv_usec / 1000) - t_start);
+}
+
+void	precise_usleep(long time)
+{
+	time += ft_gettime(0);
+	while (ft_gettime(0) <= time)
+		usleep(100);
+}
 
 int	mutex_handler(pthread_mutex_t *mutex, t_mutex operation)
 {
@@ -34,8 +50,6 @@ int	mutex_handler(pthread_mutex_t *mutex, t_mutex operation)
 		if (pthread_mutex_destroy(mutex) != 0)
 			return (ft_mutex_error(DESTROY));
 	}
-	else
-		printf("Check the operation code used mutex_handler.\n");
 	return (0);
 }
 
@@ -58,25 +72,30 @@ int	thread_handler(pthread_t *thread, void *(*foo)(void *),
 			return (ft_mutex_error(DETACH));
 	}
 	else
-		printf("Check the operation code used in thread_handler.\n");
+		printf("Check operation code used in thread_handler.\n");
 	return (0);
 }
 
-void	clean_sim(t_args *args)
+void	clean_sim(t_data *data)
 {
 	t_philo	*philo;
 	int		i;
 
 	i = 0;
-	while (i < args->philo_num)
+	while (i < data->philo_num)
+		thread_handler(&data->philoarr[i++].thread_id, NULL, NULL, JOIN);
+	i = 0;
+	while (i < data->philo_num)
 	{
-		philo = args->philoarr + i;
+		philo = &data->philoarr[i];
+		mutex_handler(&data->forks[i].fork_mtx, DESTROY);
 		mutex_handler(&philo->philo_mutex, DESTROY);
 		i++;
 	}
-	mutex_handler(&args->args_mutex, DESTROY);
-	mutex_handler(&args->write_mutex, DESTROY);
-	free(args->forks);
-	free(args->philoarr);
-	printf("Dining finshed.\n");
+	mutex_handler(&data->data_mtx, DESTROY);
+	mutex_handler(&data->write_mtx, DESTROY);
+	if (data->forks)
+		free(data->forks);
+	if (data->philoarr)
+		free(data->philoarr);
 }

@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:03:44 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/20 18:25:50 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/04/30 20:25:41 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 int	main(int argc, char **argv)
 {
-	t_args	args;
+	t_data	data;
 
 	if (argc < 5 || argc > 6)
 		return (ft_error(0));
-	checker_philo(argc, argv, &args);
-	init_data(&args);
-	init_dining(&args);
-	clean_sim(&args);
+	if (checker_arg(argc, argv, &data) != 0)
+		return (1);
+	if (init_data(&data) != 0)
+	{
+		clean_sim(&data);
+		return (1);
+	}
+	ft_checker(&data);
+	clean_sim(&data);
+	printf("Dining finished.\n");
 	return (0);
 }

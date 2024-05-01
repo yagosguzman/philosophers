@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:52:29 by ysanchez          #+#    #+#             */
-/*   Updated: 2023/12/20 17:47:33 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:15:19 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,52 @@ static int	is_space(char c)
 		return (1);
 }
 
-static int	check_valid_arg(char **argv)
+void	save_info(int i, long result, t_data *data)
+{
+	if (i == 1)
+		data->philo_num = result;
+	else if (i == 2)
+		data->time_to_die = result;
+	else if (i == 3)
+		data->time_to_eat = result;
+	else if (i == 4)
+		data->time_to_sleep = result;
+	else if (i == 5)
+		data->max_eat = result;
+	else
+		return ;
+}
+
+int	ft_atol(int argnum, char *str, t_data *data)
+{
+	int		i;
+	int		j;
+	long	result;
+
+	i = 0;
+	result = 0;
+	while (str[i] != '\0' && is_space(str[i]) == 0)
+		i++;
+	if (str[i] == '+')
+		i++;
+	j = i;
+	while (str[j])
+		j++;
+	if ((j - i) > 19)
+		return (1);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = (result * 10) + (str[i] - 48);
+		i++;
+	}
+	if (result > LONG_MAX || result <= 0)
+		return (1);
+	else
+		save_info(argnum, result, data);
+	return (0);
+}
+
+int	check_valid_arg(char **argv)
 {
 	int	i;
 	int	j;
@@ -31,11 +76,11 @@ static int	check_valid_arg(char **argv)
 	{
 		while (is_space(argv[i][j]) == 0)
 			j++;
-		if (argv[i][j] == '\0')
+		if (argv[i][j] == '\0' || (argv[i][j] == '+' && argv[i][j + 1] == '\0'))
 			return (1);
 		if (argv[i][j] == '+')
 			j++;
-		while (argv[i][j] != '\0')
+		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return (1);
@@ -47,54 +92,19 @@ static int	check_valid_arg(char **argv)
 	}
 	return (0);
 }
-// DUDA SI GUARDAR EL TIMETOX EN MILI O MICRO
-static void	save_info(int i, long result, t_args *args)
-{
-	if (i == 1)
-		args->philo_num = result;
-	if (i == 2)
-		args->time_to_die = result * 1000;
-	if (i == 3)
-		args->time_to_eat = result * 1000;
-	if (i == 4)
-		args->time_to_sleep = result * 1000;
-	if (i == 5)
-		args->max_eat = result;
-}
 
-static long	arg_to_long(int argnum, char *str, t_args *args)
-{
-	int		i;
-	long	result;
-
-	i = 0;
-	result = 0;
-	while (is_space(str[i]) == 0 && str[i] != '\0')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = (result * 10) + (str[i] - 48);
-		i++;
-	}
-	if (result > LONG_MAX)
-		return (-1);
-	else
-		save_info(argnum, result, args);
-	return (0);
-}
-
-int	checker_philo(int argc, char **argv, t_args *args)
+int	checker_arg(int argc, char **argv, t_data *data)
 {
 	int	i;
 
 	i = 1;
 	if (argc == 5)
-		args->max_eat = -1;
+		data->max_eat = -1;
 	if (check_valid_arg(argv) == 1)
 		return (ft_error(1));
 	while (i < argc)
 	{
-		if (arg_to_long(i, argv[i], args) == -1)
+		if (ft_atol(i, argv[i], data) == 1)
 			return (ft_error(2));
 		i++;
 	}
