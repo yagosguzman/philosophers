@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:32:20 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/04/30 17:35:58 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:20:57 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ long	get_value(pthread_mutex_t *mutex, long *src)
 
 int	simulation_finished(t_data *data)
 {
-	if (get_value(&data->data_mtx, &data->finish) == 1
-		|| get_value(&data->data_mtx, &data->full) == data->philo_num)
+	if (get_value(&data->finish_mtx, &data->finish) == 1
+		|| get_value(&data->full_mtx, &data->full) == data->philo_num)
 		return (1);
 	return (0);
 }

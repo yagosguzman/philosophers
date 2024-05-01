@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:58:46 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/04/30 21:29:07 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:59:20 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	solo_philo(t_philo *philo)
 	precise_usleep(philo->data->time_to_die);
 	write_status(DIED, philo);
 	mutex_handler(&philo->rightfork->fork_mtx, UNLOCK);
-	set_value(&philo->data->data_mtx, &philo->data->finish, 1);
+	set_value(&philo->data->finish_mtx, &philo->data->finish, 1);
 }
 
 void	*ft_routine(void *v_data)
@@ -48,7 +48,9 @@ void	*ft_routine(void *v_data)
 		else
 			multiple_philos(philo);
 	}
-	return ((void *)0);
+	if (philo->num_eat == philo->data->max_eat)
+		printf("Philo %d has finished\n", philo->id);
+	return (NULL);
 }
 
 int	philo_dead(t_philo *philo)
@@ -57,7 +59,7 @@ int	philo_dead(t_philo *philo)
 	long	time_to_die;
 
 	transcurred = ft_gettime(philo->data->start)
-		- get_value(&philo->philo_mutex, &philo->last_time_eat);
+		- get_value(&philo->philo_mtx, &philo->last_time_eat);
 	time_to_die = philo->data->time_to_die;
 	if (transcurred > time_to_die)
 		return (1);
@@ -78,7 +80,7 @@ void	ft_checker(t_data *data)
 			if (philo_dead(&data->philoarr[i]))
 			{
 				write_status(DIED, &data->philoarr[i]);
-				set_value(&data->data_mtx, &data->finish, 1);
+				set_value(&data->finish_mtx, &data->finish, 1);
 			}
 			i++;
 			if (i == data->philo_num)

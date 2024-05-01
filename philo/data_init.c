@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:25:46 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/04/30 17:49:37 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:51:45 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_philo(t_data *data)
 		philo->num_eat = 0;
 		philo->goal = 0;
 		philo->data = data;
-		mutex_handler(&philo->philo_mutex, INIT);
+		mutex_handler(&philo->philo_mtx, INIT);
 		init_forks(philo, i, data->forks);
 		i++;
 	}
@@ -67,6 +67,8 @@ static void	create_data_mtx(t_data *data)
 {
 	mutex_handler(&data->data_mtx, INIT);
 	mutex_handler(&data->write_mtx, INIT);
+	mutex_handler(&data->full_mtx, INIT);
+	mutex_handler(&data->finish_mtx, INIT);
 	mutex_handler(&data->data_mtx, LOCK);
 }
 

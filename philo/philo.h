@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:29:49 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/04/30 17:50:33 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:14:07 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ typedef struct s_philo
 	long			goal;
 	long			last_time_eat;
 	t_data			*data;
-	pthread_mutex_t	philo_mutex;
+	pthread_mutex_t	philo_mtx;
 	t_fork			*leftfork;
 	t_fork			*rightfork;
 }	t_philo;
 
 struct s_data
 {
+	pthread_t		checker;
 	long			philo_num;
 	long			time_to_die;
 	long			time_to_eat;
@@ -77,6 +78,8 @@ struct s_data
 	long			full;
 	long			start;
 	pthread_mutex_t	data_mtx;
+	pthread_mutex_t	finish_mtx;
+	pthread_mutex_t	full_mtx;
 	pthread_mutex_t	write_mtx;
 	t_fork			*forks;
 	t_philo			*philoarr;
