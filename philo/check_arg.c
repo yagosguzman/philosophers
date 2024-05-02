@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:52:29 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/04/25 18:15:19 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:24:05 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ int	checker_arg(int argc, char **argv, t_data *data)
 			return (ft_error(2));
 		i++;
 	}
+	if (data->philo_num > 1000)
+		return (ft_error(6));
 	return (0);
 }

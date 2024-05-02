@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:29:49 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/02 15:59:11 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:20:33 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	int				id;
 	long			num_eat;
-	long			goal;
 	long			last_time_eat;
 	t_data			*data;
 	pthread_mutex_t	philo_mtx;
@@ -68,7 +67,6 @@ typedef struct s_philo
 
 struct s_data
 {
-	pthread_t		checker;
 	long			philo_num;
 	long			time_to_die;
 	long			time_to_eat;
@@ -78,9 +76,9 @@ struct s_data
 	long			full;
 	long			start;
 	pthread_mutex_t	data_mtx;
+	pthread_mutex_t	write_mtx;
 	pthread_mutex_t	finish_mtx;
 	pthread_mutex_t	full_mtx;
-	pthread_mutex_t	write_mtx;
 	t_fork			*forks;
 	t_philo			*philoarr;
 } ;
@@ -105,13 +103,13 @@ int		ft_thread_error(int errnum);
 /*########## get_set_mutex.c ##########*/
 void	set_value(pthread_mutex_t *mutex, long *dst, long value);
 long	get_value(pthread_mutex_t *mutex, long *src);
-int		simulation_finished(t_data *data); // TO DO
+int		all_philos_full(t_data *data);
+int		simulation_finished(t_data *data);
 
 /*########## instructions.c ##########*/
 void	write_status(t_status status, t_philo *philo);
-void	ft_eating(t_philo *philo);
-void	ft_sleeping(t_philo *philo);
-void	ft_thinking(t_philo *philo);
+void	solo_routine(t_philo *philo);
+void	multi_routine(t_philo *philo);
 
 /*########## utils.c ##########*/
 long	ft_gettime(long t_start);
@@ -122,7 +120,6 @@ int		thread_handler(pthread_t *thread, void *(*foo)(void *),
 void	clean_sim(t_data *data);
 
 /*########## dining.c ##########*/
-void	solo_philo(t_philo *philo);
 void	*ft_routine(void *v_data);
 int		philo_dead(t_philo *philo);
 void	ft_checker(t_data *data);

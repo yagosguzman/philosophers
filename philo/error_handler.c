@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:26:26 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/02/23 18:13:53 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:25:51 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_error(int errnum)
 		printf("Error\nFound unexpected characters in the arguments.\n");
 	else if (errnum == 2)
 		printf("Error\nYou can only use unsigned long numbers bigger than zero "
-			"as arguments.\n");
+			"as arguments. (Philos shouldn't be more than 200)\n");
 	else if (errnum == 3)
 		printf("Error\nProblem creating malloc.\n");
 	else if (errnum == 4)
@@ -31,6 +31,8 @@ int	ft_error(int errnum)
 	else if (errnum == 5)
 		printf("Error\nProblem using the function gettime.\nRemember to just "
 			"use SECONDS, MILLISECONDS OR MICROSECONDS\n");
+	else if (errnum == 6)
+		printf("Error\nPlease be nice and don't put so many philosophers\n");
 	return (1);
 }
 

@@ -6,13 +6,13 @@
 #    By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/12 19:05:57 by ysanchez          #+#    #+#              #
-#    Updated: 2024/05/02 15:19:54 by ysanchez         ###   ########.fr        #
+#    Updated: 2024/05/02 22:26:59 by ysanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g -fsanitize=thread#-fsanitize=address
+FLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 HEADER = philo.h
 SRC = main.c error_handler.c check_arg.c utils.c data_init.c instructions.c \

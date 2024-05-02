@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:03:44 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/04/30 20:25:41 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:52:48 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(int argc, char **argv)
 		clean_sim(&data);
 		return (1);
 	}
+	data.start = ft_gettime(0);
+	mutex_handler(&data.data_mtx, UNLOCK);
 	ft_checker(&data);
 	clean_sim(&data);
 	printf("Dining finished.\n");
