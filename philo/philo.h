@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:29:49 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/01 20:14:07 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:59:11 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ struct s_data
 	pthread_mutex_t	write_mtx;
 	t_fork			*forks;
 	t_philo			*philoarr;
-	pthread_t		checker;
 } ;
 
 /*########## check_arg.c ##########*/
@@ -123,7 +122,7 @@ int		thread_handler(pthread_t *thread, void *(*foo)(void *),
 void	clean_sim(t_data *data);
 
 /*########## dining.c ##########*/
-void	multiple_philos(t_philo *philo);
+void	solo_philo(t_philo *philo);
 void	*ft_routine(void *v_data);
 int		philo_dead(t_philo *philo);
 void	ft_checker(t_data *data);

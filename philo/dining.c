@@ -6,18 +6,11 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:58:46 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/01 19:59:20 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:59:03 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	multiple_philos(t_philo *philo)
-{
-	ft_eating(philo);
-	ft_sleeping(philo);
-	ft_thinking(philo);
-}
 
 void	solo_philo(t_philo *philo)
 {
@@ -41,15 +34,14 @@ void	*ft_routine(void *v_data)
 	while (!simulation_finished(philo->data))
 	{
 		if (philo->data->philo_num == 1)
-		{
 			solo_philo(philo);
-			break ;
-		}
 		else
-			multiple_philos(philo);
+		{
+			ft_eating(philo);
+			ft_sleeping(philo);
+			ft_thinking(philo);
+		}
 	}
-	if (philo->num_eat == philo->data->max_eat)
-		printf("Philo %d has finished\n", philo->id);
 	return (NULL);
 }
 
@@ -81,6 +73,13 @@ void	ft_checker(t_data *data)
 			{
 				write_status(DIED, &data->philoarr[i]);
 				set_value(&data->finish_mtx, &data->finish, 1);
+			}
+			if (get_value(&data->philoarr[i].philo_mtx,
+					&data->philoarr[i].goal) == 1)
+			{
+				set_value(&data->philoarr[i].philo_mtx,
+					&data->philoarr[i].goal, 2);
+				set_value(&data->finish_mtx, &data->finish, (data->finish + 1));
 			}
 			i++;
 			if (i == data->philo_num)

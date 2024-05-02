@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:25:46 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/01 18:51:45 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:59:42 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	init_threads(t_data *data)
 {
-	t_philo	*philo;
 	int		i;
+	t_philo	*philo;
 
 	i = 0;
 	philo = data->philoarr;
