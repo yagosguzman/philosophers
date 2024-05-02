@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_set_mutex.c                                    :+:      :+:    :+:   */
+/*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 16:32:20 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/02 21:35:51 by ysanchez         ###   ########.fr       */
+/*   Created: 2024/05/02 22:41:06 by ysanchez          #+#    #+#             */
+/*   Updated: 2024/05/02 22:43:03 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,23 @@ int	all_philos_full(t_data *data)
 	if (philos_full == data->philo_num)
 	{
 		set_value(&data->finish_mtx, &data->finish, 1);
+		return (1);
+	}
+	return (0);
+}
+
+int	philo_dead(t_philo *philo)
+{
+	long	transcurred;
+	long	time_to_die;
+
+	transcurred = ft_gettime(philo->data->start)
+		- get_value(&philo->philo_mtx, &philo->last_time_eat);
+	time_to_die = philo->data->time_to_die;
+	if (transcurred > time_to_die)
+	{
+		set_value(&philo->data->finish_mtx, &philo->data->finish, 1);
+		write_status(DIED, philo);
 		return (1);
 	}
 	return (0);

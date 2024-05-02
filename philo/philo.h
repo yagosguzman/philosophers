@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:29:49 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/02 22:20:33 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:44:52 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ struct s_data
 	t_philo			*philoarr;
 } ;
 
-/*########## check_arg.c ##########*/
-int		check_valid_arg(char **argv);
+/*########## parser.c ##########*/
 void	save_info(int i, long result, t_data *data);
 int		ft_atol(int argnum, char *str, t_data *data);
+int		check_valid_arg(char **argv);
 int		checker_arg(int argc, char **argv, t_data *data);
 
 /*########## data_init.c ##########*/
@@ -100,10 +100,11 @@ int		ft_error(int errnum);
 int		ft_mutex_error(int errnum);
 int		ft_thread_error(int errnum);
 
-/*########## get_set_mutex.c ##########*/
+/*########## checkers.c ##########*/
 void	set_value(pthread_mutex_t *mutex, long *dst, long value);
 long	get_value(pthread_mutex_t *mutex, long *src);
 int		all_philos_full(t_data *data);
+int		philo_dead(t_philo *philo);
 int		simulation_finished(t_data *data);
 
 /*########## instructions.c ##########*/
@@ -121,7 +122,6 @@ void	clean_sim(t_data *data);
 
 /*########## dining.c ##########*/
 void	*ft_routine(void *v_data);
-int		philo_dead(t_philo *philo);
 void	ft_checker(t_data *data);
 
 #endif

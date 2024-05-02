@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_arg.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 14:52:29 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/02 22:24:05 by ysanchez         ###   ########.fr       */
+/*   Created: 2024/05/02 22:39:00 by ysanchez          #+#    #+#             */
+/*   Updated: 2024/05/02 22:40:20 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	checker_arg(int argc, char **argv, t_data *data)
 			return (ft_error(2));
 		i++;
 	}
-	if (data->philo_num > 1000)
+	if (data->philo_num >= 1000)
 		return (ft_error(6));
 	return (0);
 }

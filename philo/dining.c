@@ -6,7 +6,7 @@
 /*   By: ysanchez <ysanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:58:46 by ysanchez          #+#    #+#             */
-/*   Updated: 2024/05/02 22:19:54 by ysanchez         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:42:37 by ysanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,6 @@ void	*ft_routine(void *v_data)
 			multi_routine(philo);
 	}
 	return (NULL);
-}
-
-int	philo_dead(t_philo *philo)
-{
-	long	transcurred;
-	long	time_to_die;
-
-	transcurred = ft_gettime(philo->data->start)
-		- get_value(&philo->philo_mtx, &philo->last_time_eat);
-	time_to_die = philo->data->time_to_die;
-	if (transcurred > time_to_die)
-	{
-		set_value(&philo->data->finish_mtx, &philo->data->finish, 1);
-		write_status(DIED, philo);
-		return (1);
-	}
-	return (0);
 }
 
 void	ft_checker(t_data *data)
